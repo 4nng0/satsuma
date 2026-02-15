@@ -4,13 +4,12 @@
 
 #ifndef SATSUMA_PARSER_H
 #define SATSUMA_PARSER_H
-#include "utility.h"
-#include "cnf.h"
-#include "cnf2wl.h"
+
+#include "ICnf2wl.h"
 #include <string>
 #include <charconv>
 
-void parse_dimacs_to_cnf2wl(std::string& filename, cnf2wl& formula, bool entered_file) {
+inline void parse_dimacs_to_cnf2wl(const std::string& filename, ICnf2wl& formula, bool entered_file) {
     FILE* file = nullptr;
     if(entered_file) file = fopen(filename.c_str(), "r");
     else file = stdin;

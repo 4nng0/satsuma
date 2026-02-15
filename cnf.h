@@ -8,7 +8,7 @@
 #include <string>
 #include "dejavu/groups.h"
 #include "tsl/robin_set.h"
-#include "utility.h"
+#include "internal_utility.h"
 #include "cnf2wl.h"
 
 /**

@@ -11,17 +11,20 @@
 #include "dejavu/dejavu.h"
 #include "cnf.h"
 #include "cnf2wl.h"
-#include "utility.h"
+#include "include/ICnf2wl.h"
+#include "internal_utility.h"
+#include "include/utility.h"
 #include "group_analyzer.h"
 #include "hypergraph.h"
 #include "proof.h"
+#include "include/IPreprocessor.h"
 
 namespace satsuma {
     /**
      * \brief The satsuma preprocessor.
      *
      */
-    class preprocessor {
+    class preprocessor : public ISatsumaPreprocessor {
         bool        entered_output_file = false;
         std::string output_filename     = "";
 
@@ -245,126 +248,141 @@ namespace satsuma {
         }
 
     public:
-        void set_struct_only(bool use_only_struct) {
+        void set_struct_only(bool use_only_struct) override {
             struct_only = use_only_struct;
         }
 
-        void set_graph_only(bool use_only_struct) {
+        void set_graph_only(bool use_only_struct) override {
             graph_only = use_only_struct;
         }
 
-        void set_optimize_generators(bool use_optimize_generators) {
+        void set_optimize_generators(bool use_optimize_generators) override {
             optimize_generators = use_optimize_generators;
         }
 
-        void output_file(std::string& outfile) {
+        void output_file(std::string& outfile) override {
             output_filename = outfile;
             entered_output_file = true;
         }
 
-        int get_row_orbit_limit() const {
+        int get_row_orbit_limit() const override {
             return row_orbit_limit;
         }
 
-        void set_row_orbit_limit(int rowOrbitLimit) {
+        void set_row_orbit_limit(int rowOrbitLimit) override {
             row_orbit_limit = rowOrbitLimit;
         }
 
-        int get_row_column_orbit_limit() const {
+        int get_row_column_orbit_limit() const override {
             return row_column_orbit_limit;
         }
 
-        void set_row_column_orbit_limit(int rowColumnOrbitLimit) {
+        void set_row_column_orbit_limit(int rowColumnOrbitLimit) override {
             row_column_orbit_limit = rowColumnOrbitLimit;
         }
 
-        int get_johnson_orbit_limit() const {
+        int get_johnson_orbit_limit() const override {
             return johnson_orbit_limit;
         }
 
-        void set_johnson_orbit_limit(int johnsonOrbitLimit) {
+        void set_johnson_orbit_limit(int johnsonOrbitLimit) override {
             johnson_orbit_limit = johnsonOrbitLimit;
         }
 
-        int get_break_depth() const {
+        int get_break_depth() const override {
             return break_depth;
         }
 
-        void set_break_depth(int breakDepth) {
+        void set_break_depth(int breakDepth) override {
             break_depth = breakDepth;
         }
 
-        void set_opt_passes(int passes) {
+        void set_opt_passes(int passes) override {
             opt_optimize_passes = passes;
         }
 
-        void set_opt_conjugations(int conjugations) {
+        void set_opt_conjugations(int conjugations) override {
             opt_conjugate_limit = conjugations;
         }
 
-        void set_opt_random(int random) {
+        void set_opt_random(int random) override {
             opt_addition_limit = random;
         }
 
-        void set_opt_reopt(bool reopt) {
+        void set_opt_reopt(bool reopt) override {
             opt_reopt = reopt;
         }
 
-        void set_dejavu_print(bool print) {
+        void set_dejavu_print(bool print) override {
             dejavu_print = print;
         }
 
-        void set_dejavu_backtrack_limit(int limit = -1) {
+        void set_dejavu_backtrack_limit(int limit = -1) override {
             dejavu_backtrack_limit = limit;
         }
 
-        void set_component_size_limit(int limit = -1) {
+        void set_component_size_limit(int limit = -1) override {
             graph_component_size_limit = limit;
         }
 
-        void set_absolute_support_limit(int limit = -1) {
+        void set_absolute_support_limit(int limit = -1) override {
             absolute_support_limit = limit;
         }
 
-        void set_split_limit(int limit = -1) {
+        void set_split_limit(int limit = -1) override {
             split_limit = limit;
         }
 
-        void set_dejavu_prefer_dfs(bool prefer_dfs) {
+        void set_dejavu_prefer_dfs(bool prefer_dfs) override {
             dejavu_prefer_dfs = prefer_dfs;
         }
 
-        void set_preprocess_cnf_subsume(bool preprocessCNFsubsume) {
+        void set_preprocess_cnf_subsume(bool preprocessCNFsubsume) override {
             preprocess_cnf_subsume = preprocessCNFsubsume;
         }
 
 
-        void set_preprocess_cnf(bool preprocessCNF) {
+        void set_preprocess_cnf(bool preprocessCNF) override {
             preprocess_cnf = preprocessCNF;
         }
 
-        void set_hypergraph_macros(bool hypergraphMacros) {
+        void set_hypergraph_macros(bool hypergraphMacros) override {
             hypergraph_macros = hypergraphMacros;
         }
 
-        void set_binary_clauses(bool binaryClauses) {
+        void set_binary_clauses(bool binaryClauses) override {
             binary_clauses = binaryClauses;
         }
 
-        void set_proof(proof_veripb* my_proof = nullptr) {
-            this->my_proof = my_proof;
+        void enable_proof_logging(const std::string& filename) override {
+            _proof_stream.open(filename);
+            if (!_proof_stream.is_open()) {
+                terminate_with_error("could not open proof file '" + filename + "'");
+            }
+            // Internes Objekt mit dem Stream initialisieren
+            _my_proof = std::make_unique<proof_veripb>(_proof_stream);
+
+            // Jetzt kann deine interne Logik 'this->_my_proof' wie gewohnt nutzen
         }
 
-        void set_profiler(profiler* my_profiler = nullptr) {
+        void set_profiler(profiler* my_profiler = nullptr) override {
             this->my_profiler = my_profiler;
         }
 
-        void set_log_output(std::ostream* new_logout) {
+        void set_log_output(std::ostream* new_logout) override {
             if(new_logout == nullptr) terminate_with_error("log output can not be nullptr");
             log = new_logout;
         }
 
-        void preprocess(cnf2wl& formula) {
+        void preprocess(ICnf2wl& interface_ref) override {
+
+            cnf2wl* formula = dynamic_cast<cnf2wl*>(&interface_ref);
+
+            // Wenn das fehlschlägt, ist internal == nullptr
+            assert(internal != nullptr && "Fehler: Preprocessor wurde mit einer unbekannten ICnf2wl-Implementierung aufgerufen!");
+
+
+
             stopwatch sw;
 
             // apply rudimentary, symmetry-preserving CNF preprocessing
@@ -431,6 +449,10 @@ namespace satsuma {
             generate_symmetry_predicate(formula_db);
         }
     };
+
+    std::unique_ptr<Ipreprocessor> create_preprocessor() {
+        return std::make_unique<preprocessor>();
+    }
 }
 
 #endif //SATSUMA_SATSUMA_H

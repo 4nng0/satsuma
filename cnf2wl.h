@@ -6,12 +6,18 @@
 #define SATSUMA_CNF2WL_H
 
 #include <string>
-#include "utility.h"
+#include "internal_utility.h"
 #include "dejavu/ds.h"
 #include <charconv>
-#include <bitset> 
+#include <bitset>
+#include "include/ICnf2wl.h"
 
-class cnf2wl {
+// Implementierung der Factory-Funktion
+std::unique_ptr<ICnfProcessor> create_cnf_processor() {
+    return std::make_unique<cnf2wl>();
+}
+
+class cnf2wl : public ICnf2wl {{
     std::vector<std::pair<int, int>> clauses_pt;
     std::vector<std::pair<int, int>> clauses_watches;
     std::vector<int> clauses;
@@ -34,7 +40,7 @@ class cnf2wl {
     dejavu::ds::markset test_for_subsumption;
 
 public:
-    void reserve(int n, int m) {
+    void reserve(int n, int m) override {
         number_of_variables = n;
         clauses_pt.reserve(m);
         clauses.reserve(4*m);
@@ -159,7 +165,7 @@ public:
         return clause_satisfied.get(clause);
     }
 
-    void add_clause(std::vector<int>& clause) {
+    void add_clause(std::vector<int>& clause) override {
         test_redundant.reset();
         for(auto& l : clause) {
             const int graph_l  = sat_to_graph(l);
@@ -332,11 +338,11 @@ public:
         return redundant_removed;
     }
 
-    int n_variables() {
+    int n_variables() override {
         return number_of_variables;
     }
 
-    bool is_conflicting() {
+    bool is_conflicting() override {
         return conflict;
     }
 
