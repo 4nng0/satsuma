@@ -1,0 +1,2 @@
+/usr/bin/ar qc liblibsatsuma.a CMakeFiles/libsatsuma.dir/satsuma.cpp.o
+/usr/bin/ranlib liblibsatsuma.a

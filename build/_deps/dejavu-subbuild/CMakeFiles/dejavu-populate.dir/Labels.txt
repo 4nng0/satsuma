@@ -1,0 +1,14 @@
+# Target labels
+ dejavu-populate
+# Source files and their labels
+/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-subbuild/CMakeFiles/dejavu-populate
+/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-subbuild/CMakeFiles/dejavu-populate.rule
+/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-subbuild/CMakeFiles/dejavu-populate-complete.rule
+/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-build.rule
+/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-configure.rule
+/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-download.rule
+/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-install.rule
+/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-mkdir.rule
+/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-patch.rule
+/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-test.rule
+/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-update.rule

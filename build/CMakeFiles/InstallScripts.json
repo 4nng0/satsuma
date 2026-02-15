@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/annagoerth/CLionProjects/satsuma/build/cmake_install.cmake",
+		"/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
