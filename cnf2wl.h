@@ -5,19 +5,16 @@
 #ifndef SATSUMA_CNF2WL_H
 #define SATSUMA_CNF2WL_H
 
-#include <string>
 #include "internal_utility.h"
+#include <string>
 #include "dejavu/ds.h"
 #include <charconv>
 #include <bitset>
 #include "include/ICnf2wl.h"
 
-// Implementierung der Factory-Funktion
-std::unique_ptr<ICnfProcessor> create_cnf_processor() {
-    return std::make_unique<cnf2wl>();
-}
 
-class cnf2wl : public ICnf2wl {{
+
+class cnf2wl : public satsuma::ICnf2wl {
     std::vector<std::pair<int, int>> clauses_pt;
     std::vector<std::pair<int, int>> clauses_watches;
     std::vector<int> clauses;
@@ -326,15 +323,15 @@ public:
         return clauses.size();
     }
 
-    int n_len() {
+    int n_len() override {
         return clauses.size();
     }
 
-    int n_clauses() {
+    int n_clauses() override {
         return clauses_pt.size();
     }
 
-    int n_redundant_clauses() {
+    int n_redundant_clauses() override{
         return redundant_removed;
     }
 
@@ -406,5 +403,6 @@ public:
 
     }
 };
+
 
 #endif //SATSUMA_CNF2WL_H

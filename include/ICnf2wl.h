@@ -11,9 +11,10 @@
 #include <memory>
 
 // Das abstrakte Interface
+namespace satsuma {
 class ICnf2wl{
 public:
-    virtual ~ICnfProcessor() = default;
+    virtual ~ICnf2wl() = default;
 
     // Deine gewünschten öffentlichen Methoden
     virtual void reserve(int n, int m) = 0;
@@ -23,13 +24,13 @@ public:
     virtual int n_variables() = 0;
     virtual bool is_conflicting() = 0;
 
-    n_redundant_clauses()
-    n_len()
-    n_clauses()
+    virtual int n_redundant_clauses() = 0;
+    virtual int n_len() = 0;
+    virtual int n_clauses() = 0;
 };
 
 // Die Factory-Funktion, um eine Instanz der Implementierung zu erhalten
-extern "C" std::unique_ptr<ICnfProcessor> create_cnf2wl();
-
+extern  std::unique_ptr<ICnf2wl> create_cnf2wl();
+}
 
 #endif //SATSUMA_ICNF2WL_H

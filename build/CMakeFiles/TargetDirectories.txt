@@ -1,7 +1,0 @@
-/Users/annagoerth/CLionProjects/satsuma/build/CMakeFiles/satsuma.dir
-/Users/annagoerth/CLionProjects/satsuma/build/CMakeFiles/libsatsuma.dir
-/Users/annagoerth/CLionProjects/satsuma/build/CMakeFiles/edit_cache.dir
-/Users/annagoerth/CLionProjects/satsuma/build/CMakeFiles/rebuild_cache.dir
-/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-build/CMakeFiles/dejavu.dir
-/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-build/CMakeFiles/edit_cache.dir
-/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-build/CMakeFiles/rebuild_cache.dir

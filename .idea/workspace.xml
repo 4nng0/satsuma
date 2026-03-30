@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="BackendCodeEditorMiscSettings">
-    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="8" type="long" />
+    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="14" type="long" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
     <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
@@ -27,18 +27,190 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d27e63f-630a-4c23-b5a8-8937a8a20e2b" name="Changes" comment="anpassung von preprocessor um die formel übergeben zu können in Mallob format">
-      <change afterPath="$PROJECT_DIR$/include/ICnf2wl.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/IPreprocessor.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/utility.h" afterDir="false" />
+    <list default="true" id="6d27e63f-630a-4c23-b5a8-8937a8a20e2b" name="Changes" comment="zeug löschen">
+      <change afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/compiler_depend.internal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/factory.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/satsuma.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/satsuma.cpp.o.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma_exec.dir/cmake_clean.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma_exec.dir/compiler_depend.internal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma_exec.dir/compiler_depend.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma_exec.dir/compiler_depend.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma_exec.dir/depend.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma_exec.dir/link.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma_exec.dir/progress.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma_exec.dir/satsuma.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma_exec.dir/satsuma.cpp.o.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/_deps/dejavu-build/CMakeFiles/dejavu.dir/compiler_depend.internal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/_deps/dejavu-build/CMakeFiles/dejavu.dir/dejavu.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/_deps/dejavu-build/CMakeFiles/dejavu.dir/dejavu.cpp.o.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/_deps/dejavu-build/dejavu" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/libsatsuma.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/satsuma_exec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeCache.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/3.22.1/CMakeCCompiler.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/3.22.1/CMakeCXXCompiler.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/3.22.1/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/3.22.1/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/3.22.1/CMakeSystem.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/3.22.1/CompilerIdC/CMakeCCompilerId.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/3.22.1/CompilerIdC/a.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/3.22.1/CompilerIdCXX/CMakeCXXCompilerId.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/3.22.1/CompilerIdCXX/a.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/Makefile2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/cmake.check_cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma.dir/DependInfo.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma.dir/build.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma.dir/cmake_clean.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma.dir/cmake_clean_target.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma.dir/compiler_depend.internal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma.dir/compiler_depend.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma.dir/factory.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma.dir/factory.cpp.o.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma.dir/flags.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma.dir/link.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma_exec.dir/DependInfo.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma_exec.dir/build.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma_exec.dir/cmake_clean.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma_exec.dir/compiler_depend.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma_exec.dir/compiler_depend.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma_exec.dir/depend.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma_exec.dir/flags.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma_exec.dir/link.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma_exec.dir/progress.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma_exec.dir/satsuma.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma_exec.dir/satsuma.cpp.o.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-build/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-build/CMakeFiles/dejavu.dir/DependInfo.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-build/CMakeFiles/dejavu.dir/build.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-build/CMakeFiles/dejavu.dir/cmake_clean.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-build/CMakeFiles/dejavu.dir/compiler_depend.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-build/CMakeFiles/dejavu.dir/compiler_depend.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-build/CMakeFiles/dejavu.dir/dejavu.cpp.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-build/CMakeFiles/dejavu.dir/dejavu.cpp.o.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-build/CMakeFiles/dejavu.dir/depend.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-build/CMakeFiles/dejavu.dir/flags.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-build/CMakeFiles/dejavu.dir/link.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-build/CMakeFiles/dejavu.dir/progress.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-build/CMakeFiles/progress.marks" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-build/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-build/cmake_install.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-build/dejavu" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeCache.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/3.22.1/CMakeSystem.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/CMakeRuleHashes.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/Makefile2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/cmake.check_cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/dejavu-populate-complete" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/dejavu-populate.dir/DependInfo.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/dejavu-populate.dir/Labels.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/dejavu-populate.dir/Labels.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/dejavu-populate.dir/build.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/dejavu-populate.dir/cmake_clean.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/dejavu-populate.dir/compiler_depend.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/dejavu-populate.dir/compiler_depend.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/dejavu-populate.dir/progress.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeFiles/progress.marks" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/cmake_install.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-build" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-configure" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-done" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-download" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-gitclone-lastrun.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-gitinfo.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-install" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-mkdir" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/dejavu-populate-prefix/src/dejavu-populate-stamp/dejavu-populate-test" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/dejavu-populate-prefix/tmp/dejavu-populate-cfgcmd.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/dejavu-populate-prefix/tmp/dejavu-populate-cfgcmd.txt.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/dejavu-populate-prefix/tmp/dejavu-populate-gitclone.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/_deps/dejavu-subbuild/dejavu-populate-prefix/tmp/dejavu-populate-gitupdate.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/cmake_install.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/libsatsuma.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build_linux/satsuma_exec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_1189.break.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_1189.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_180.break.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_180.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_270.break.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_270.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_273.break.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_273.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_299.break.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_299.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_328.break.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_328.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_329.break.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_329.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_351.break.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_351.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_360.break.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_360.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_387.break.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_387.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_441.break.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_441.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_492.break.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_492.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_744.break.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/clique/clique_744.cnf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/factory.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/4.2.0/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/4.2.0/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/4.2.0/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/4.2.0/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Progress/5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Progress/count.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/progress.marks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/libsatsuma.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma_exec.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/libsatsuma.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma_exec.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/libsatsuma.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/libsatsuma.dir/cmake_clean_target.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/cmake_clean_target.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/libsatsuma.dir/compiler_depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/libsatsuma.dir/compiler_depend.ts" beforeDir="false" afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma.dir/compiler_depend.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/libsatsuma.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma.dir/depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/libsatsuma.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma_exec.dir/flags.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/libsatsuma.dir/link.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/libsatsuma.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/build_linux/CMakeFiles/satsuma.dir/progress.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/libsatsuma.dir/satsuma.cpp.o.d" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/factory.cpp.o.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/cmake_clean.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/compiler_depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/link.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/satsuma.dir/progress.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/build/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/_deps/dejavu-build/CMakeFiles/dejavu.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/_deps/dejavu-build/CMakeFiles/dejavu.dir/compiler_depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/_deps/dejavu-subbuild/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/_deps/dejavu-subbuild/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/_deps/dejavu-subbuild/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/build/_deps/dejavu-subbuild/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cnf.h" beforeDir="false" afterPath="$PROJECT_DIR$/cnf.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cnf2wl.h" beforeDir="false" afterPath="$PROJECT_DIR$/cnf2wl.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/parser.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proof.h" beforeDir="false" afterPath="$PROJECT_DIR$/proof.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group_analyzer.h" beforeDir="false" afterPath="$PROJECT_DIR$/group_analyzer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/ICnf2wl.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ICnf2wl.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/IPreprocessor.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ISatsumaPreprocessor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/parser.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/parser.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/utility.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/utility.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal_utility.h" beforeDir="false" afterPath="$PROJECT_DIR$/internal_utility.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predicate.h" beforeDir="false" afterPath="$PROJECT_DIR$/predicate.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/preprocessor.h" beforeDir="false" afterPath="$PROJECT_DIR$/preprocessor.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/satsuma.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/satsuma.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/satsuma.h" beforeDir="false" afterPath="$PROJECT_DIR$/preprocessor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utility.h" beforeDir="false" afterPath="$PROJECT_DIR$/internal_utility.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +224,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="library" />
+        <entry key="$PROJECT_DIR$" value="41044525add6bc6fb3b3482ce168857e612914a8" />
         <entry key="$PROJECT_DIR$/third_party/boost/multiprecision" value="library" />
       </map>
     </option>
@@ -61,8 +233,13 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/cnf.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/include/parser.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/cnf2wl.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/include/parser.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/include/preprocessor.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/include/proof.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/preprocessor.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/satsuma.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/utility.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="iPQ75JTL" />
@@ -160,8 +337,7 @@
       <workItem from="1770714026333" duration="851000" />
       <workItem from="1770900291837" duration="3147000" />
       <workItem from="1770905602897" duration="5704000" />
-      <workItem from="1771061367461" duration="7980000" />
-      <workItem from="1771167222236" duration="5635000" />
+      <workItem from="1774868699666" duration="1895000" />
     </task>
     <task id="LOCAL-00001" summary="trying to make library not sucessfull yet">
       <option name="closed" value="true" />
@@ -203,7 +379,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768555017745</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="zeug löschen">
+      <option name="closed" value="true" />
+      <created>1771177098877</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1771177098877</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,7 +415,9 @@
     <MESSAGE value="befor making include with header and implementation file" />
     <MESSAGE value="include directory fertig und es lässt sich zu einer funktionierenden Library builden" />
     <MESSAGE value="anpassung von preprocessor um die formel übergeben zu können in Mallob format" />
-    <option name="LAST_COMMIT_MESSAGE" value="anpassung von preprocessor um die formel übergeben zu können in Mallob format" />
+    <MESSAGE value="abstrakte Klassen aufgebaut" />
+    <MESSAGE value="zeug löschen" />
+    <option name="LAST_COMMIT_MESSAGE" value="zeug löschen" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

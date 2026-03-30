@@ -1,3 +1,0 @@
-/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-subbuild/CMakeFiles/dejavu-populate.dir
-/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-subbuild/CMakeFiles/edit_cache.dir
-/Users/annagoerth/CLionProjects/satsuma/build/_deps/dejavu-subbuild/CMakeFiles/rebuild_cache.dir

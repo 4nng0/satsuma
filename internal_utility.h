@@ -2,6 +2,9 @@
 // This file is part of satsuma 1.2.
 // See LICENSE for extended copyright information.
 
+#ifndef INTERNAL_UTILITY_H
+#define INTERNAL_UTILITY_H
+
 #include "dejavu/dejavu.h"
 #include <cassert>
 #include <iostream>
@@ -10,9 +13,6 @@
 #include <cstring>
 #include <chrono>
 #include <iomanip>
-
-#ifndef SATSUMA_UTILITY_H
-#define SATSUMA_UTILITY_H
 
 #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
 // should be POSIX, where "_unlocked" is available

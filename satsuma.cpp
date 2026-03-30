@@ -2,16 +2,17 @@
 // This file is part of satsuma 1.2.
 // See LICENSE for extended copyright information.
 
-#include "preprocessor.h"
-#include "parser.h"
+#include "include/ISatsumaPreprocessor.h" // Interface statt preprocessor.h
+#include "include/ICnf2wl.h"       // Interface für die Formel
+#include "include/parser.h"
+#include "include/utility.h"
 #include <iostream>
 #include <chrono>
 #include <string>
+#include <memory>
 
 typedef std::chrono::high_resolution_clock Clock;
 
-dejavu::ir::refinement test_r;
-dejavu::sgraph dej_test_graph;
 
 void empty_hook(int, const int*, int, const int *) {}
 
@@ -29,7 +30,8 @@ int commandline_mode(int argc, char **argv) {
     bool use_profiling     = true;
 
     bool print = true;
-    satsuma::preprocessor satsuma_preprocessor;
+	std::unique_ptr<satsuma::ISatsumaPreprocessor> satsuma_preprocessor = satsuma::create_preprocessor();
+
     std::clog << std::setprecision(2) << std::fixed;
 
     std::string write_auto_file_name;
@@ -111,7 +113,7 @@ int commandline_mode(int argc, char **argv) {
         } else if (arg == "__BREAK_DEPTH") {
             if (i + 1 < argc) {
                 i++;
-                satsuma_preprocessor.set_break_depth(atoi(argv[i]));
+                satsuma_preprocessor->set_break_depth(atoi(argv[i]));
             } else {
                 std::cerr << "--break-depth option requires one argument." << std::endl;
                 return 1;
@@ -119,7 +121,7 @@ int commandline_mode(int argc, char **argv) {
         } else if (arg == "__ROW_ORBIT_LIMIT") {
             if (i + 1 < argc) {
                 i++;
-                satsuma_preprocessor.set_row_orbit_limit(atoi(argv[i]));
+                satsuma_preprocessor->set_row_orbit_limit(atoi(argv[i]));
             } else {
                 std::cerr << "--row-orbit-limit option requires one argument." << std::endl;
                 return 1;
@@ -127,7 +129,7 @@ int commandline_mode(int argc, char **argv) {
         }  else if (arg == "__ROW_COLUMN_ORBIT_LIMIT") {
             if (i + 1 < argc) {
                 i++;
-                satsuma_preprocessor.set_row_column_orbit_limit(atoi(argv[i]));
+                satsuma_preprocessor->set_row_column_orbit_limit(atoi(argv[i]));
             } else {
                 std::cerr << "--row-orbit-limit option requires one argument." << std::endl;
                 return 1;
@@ -142,7 +144,7 @@ int commandline_mode(int argc, char **argv) {
         } else if (arg == "__JOHNSON_ORBIT_LIMIT") {
             if (i + 1 < argc) {
                 i++;
-                satsuma_preprocessor.set_johnson_orbit_limit(atoi(argv[i]));
+                satsuma_preprocessor->set_johnson_orbit_limit(atoi(argv[i]));
             } else {
                 std::cerr << "--johnson-orbit-limit option requires one argument." << std::endl;
                 return 1;
@@ -150,7 +152,7 @@ int commandline_mode(int argc, char **argv) {
         } else if (arg == "__OPT_PASSES") {
             if (i + 1 < argc) {
                 i++;
-                satsuma_preprocessor.set_opt_passes(atoi(argv[i]));
+                satsuma_preprocessor->set_opt_passes(atoi(argv[i]));
             } else {
                 std::cerr << "--opt-passes option requires one argument." << std::endl;
                 return 1;
@@ -158,7 +160,7 @@ int commandline_mode(int argc, char **argv) {
         } else if (arg == "__OPT_CONJUGATIONS") {
             if (i + 1 < argc) {
                 i++;
-                satsuma_preprocessor.set_opt_conjugations(atoi(argv[i]));
+                satsuma_preprocessor->set_opt_conjugations(atoi(argv[i]));
             } else {
                 std::cerr << "--opt-conjugations option requires one argument." << std::endl;
                 return 1;
@@ -166,41 +168,41 @@ int commandline_mode(int argc, char **argv) {
         } else if (arg == "__OPT_RANDOM") {
             if (i + 1 < argc) {
                 i++;
-                satsuma_preprocessor.set_opt_random(atoi(argv[i]));
+                satsuma_preprocessor->set_opt_random(atoi(argv[i]));
             } else {
                 std::cerr << "--opt-random option requires one argument." << std::endl;
                 return 1;
             }
         } else if (arg == "__OPT_REOPT") {
-            satsuma_preprocessor.set_opt_reopt(true);
+            satsuma_preprocessor->set_opt_reopt(true);
         } else if (arg == "__DEJAVU_PRINT") {
-            satsuma_preprocessor.set_dejavu_print(true);
+            satsuma_preprocessor->set_dejavu_print(true);
         } else if (arg == "__DEJAVU_PREFER_DFS") {
-            satsuma_preprocessor.set_dejavu_prefer_dfs(true);
+            satsuma_preprocessor->set_dejavu_prefer_dfs(true);
         } else if (arg == "__NO_OPT") {
-            satsuma_preprocessor.set_optimize_generators(false);
+            satsuma_preprocessor->set_optimize_generators(false);
         } else if (arg == "__NO_LIMITS") {
-            satsuma_preprocessor.set_dejavu_backtrack_limit(-1);
-            satsuma_preprocessor.set_component_size_limit(-1);
-            satsuma_preprocessor.set_absolute_support_limit(-1);
-            satsuma_preprocessor.set_row_orbit_limit(-1);
-            satsuma_preprocessor.set_row_column_orbit_limit(-1);
-            satsuma_preprocessor.set_johnson_orbit_limit(-1);
-            satsuma_preprocessor.set_split_limit(-1);
+            satsuma_preprocessor->set_dejavu_backtrack_limit(-1);
+            satsuma_preprocessor->set_component_size_limit(-1);
+            satsuma_preprocessor->set_absolute_support_limit(-1);
+            satsuma_preprocessor->set_row_orbit_limit(-1);
+            satsuma_preprocessor->set_row_column_orbit_limit(-1);
+            satsuma_preprocessor->set_johnson_orbit_limit(-1);
+            satsuma_preprocessor->set_split_limit(-1);
         } else if(arg == "__PREPROCESS_CNF") {
-            satsuma_preprocessor.set_preprocess_cnf(true);
+            satsuma_preprocessor->set_preprocess_cnf(true);
         } else if(arg == "__PREPROCESS_CNF_SUBSUME") {
-            satsuma_preprocessor.set_preprocess_cnf_subsume(true);
+            satsuma_preprocessor->set_preprocess_cnf_subsume(true);
         } else if(arg == "__HYPERGRAPH_MACROS") {
-            satsuma_preprocessor.set_hypergraph_macros(true);
+            satsuma_preprocessor->set_hypergraph_macros(true);
         } else if(arg == "__NO_HYPERGRAPH_MACROS") {
-            satsuma_preprocessor.set_hypergraph_macros(false);
+            satsuma_preprocessor->set_hypergraph_macros(false);
         } else if(arg == "__BINARY_CLAUSES") {
-            satsuma_preprocessor.set_binary_clauses(true);
+            satsuma_preprocessor->set_binary_clauses(true);
         } else if (arg == "__STRUCT_ONLY") {
-            satsuma_preprocessor.set_struct_only(true);
+            satsuma_preprocessor->set_struct_only(true);
         } else if (arg == "__GRAPH_ONLY") {
-            satsuma_preprocessor.set_graph_only(true);
+            satsuma_preprocessor->set_graph_only(true);
         } else if (arg == "__PROOF_FILE") {
             if (i + 1 < argc) {
                 i++;
@@ -229,7 +231,7 @@ int commandline_mode(int argc, char **argv) {
         }
     }
 
-    if(entered_file && !file_exists(filename)) {
+    if(entered_file && !this_file_exists(filename)) {
         std::cerr << "file '" << filename << "' does not exist" << std::endl;
         return 1;
     }
@@ -252,38 +254,31 @@ int commandline_mode(int argc, char **argv) {
 
     // profiling
     profiler my_profiler;
-    if(use_profiling) satsuma_preprocessor.set_profiler(&my_profiler);
+    if(use_profiling) satsuma_preprocessor->set_profiler(&my_profiler);
 
     // proof logging
-    std::ofstream proof_file;
-    proof_veripb my_proof(proof_file);
     if(use_proof_logging) {
-        try {
-            proof_file.open(proof_filename);
-        } catch (...) {
-            terminate_with_error("could not open proof file '" + proof_filename + "'");
-        }
-        satsuma_preprocessor.set_proof(&my_proof);
+        satsuma_preprocessor->enable_proof_logging(proof_filename);
     }
 
     // parsing
     if(print) std::clog << "c parse '" << filename << "'";
     stopwatch sw;
     sw.start();
-    cnf2wl formula;
-    parse_dimacs_to_cnf2wl(filename, formula, entered_file);
+    std::unique_ptr<satsuma::ICnf2wl> formula = satsuma::create_cnf2wl();
+    parse_dimacs_to_cnf2wl(filename, *formula, entered_file);
     const double t_parse = sw.stop();
     my_profiler.add_result("parse", t_parse);
     if(print) std::clog << " (" << sw.stop() << "ms)" << std::endl;
-    std::clog << "c\t [cnf: #variables " << formula.n_variables() << " #clauses " << formula.n_clauses()
-                     << " #redundant " << formula.n_redundant_clauses() << " #arr "
-                     << formula.n_len() <<  "]"<< std::endl;
+    std::clog << "c\t [cnf: #variables " << formula->n_variables() << " #clauses " << formula->n_clauses()
+                     << " #redundant " << formula->n_redundant_clauses() << " #arr "
+                     << formula->n_len() <<  "]"<< std::endl;
 
     if(use_proof_logging && print) std::clog << "c output proof to '" << proof_filename << "'\n";
 
     // call main algorithm
-    if(entered_out_file) satsuma_preprocessor.output_file(out_filename);
-    satsuma_preprocessor.preprocess(formula);
+    if(entered_out_file) satsuma_preprocessor->output_file(out_filename);
+    satsuma_preprocessor->preprocess(*formula);
 
     // output profile
     if(use_profiling) {

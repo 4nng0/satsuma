@@ -12,7 +12,6 @@
 #include "ICnf2wl.h"
 #include "utility.h"
 
-// Vorwärtsdeklarationen (kein Header-Include nötig!)
 class profiler;
 
 namespace satsuma {
@@ -20,7 +19,7 @@ namespace satsuma {
     public:
         virtual ~ISatsumaPreprocessor() = default;
 
-        virtual void output_file(const std::string& outfile) = 0;
+        virtual void output_file(std::string& outfile) = 0;
         virtual void preprocess(ICnf2wl& formula) = 0;
 
         // Setter
@@ -45,14 +44,24 @@ namespace satsuma {
         virtual void set_binary_clauses(bool enable) = 0;
         virtual void set_struct_only(bool enable) = 0;
         virtual void set_graph_only(bool enable) = 0;
+		virtual void set_log_output(std::ostream* new_logout) = 0;
 
-        // Komplexe Typen (Pointer bleiben Pointer)
+    	virtual std::vector<int>&& extractPreprocessedFormula() = 0 ;
+    	virtual bool hasPreprocessedFormula() = 0;
+    	virtual void set_save_as_Formula(bool save) = 0;
+    	virtual int get_number_of_new_clauses() = 0;
+
+		virtual int  get_row_column_orbit_limit() const = 0;
+		virtual int get_row_orbit_limit() const  = 0;
+		virtual int get_johnson_orbit_limit() const = 0;
+		virtual int get_break_depth() const = 0;
+
         virtual void set_profiler(profiler* p) = 0;
         virtual void enable_proof_logging(const std::string& filename) = 0;
     };
 
     // Factory für den Preprocessor
-    extern "C" std::unique_ptr<ISatsumaPreprocessor> create_preprocessor();
+    extern std::unique_ptr<ISatsumaPreprocessor> create_preprocessor();
 }
 
 #endif //SATSUMA_IPREPROCESSOR_H

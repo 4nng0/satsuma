@@ -32,6 +32,24 @@ else()
     include_directories(${Boost_INCLUDE_DIRS})
 endif()
 
-add_executable(satsuma satsuma.cpp)
 
-add_library(libsatsuma STATIC satsuma.cpp )
+
+add_library(satsuma STATIC
+        preprocessor.h
+        cnf2wl.h
+        cnf.h
+        group_analyzer.h
+        hypergraph.h
+        predicate.h
+        internal_utility.h
+        proof.h
+        proof.h
+        factory.cpp
+)
+
+
+add_executable(satsuma_exec satsuma.cpp)
+target_link_libraries(satsuma_exec PRIVATE satsuma)
+target_include_directories(satsuma_exec PRIVATE ${CMAKE_SOURCE_DIR}/include)
+
+

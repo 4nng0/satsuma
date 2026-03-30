@@ -2,8 +2,42 @@
 // Created by Anna Goerth on 15.02.26.
 //
 
+#include <cassert>
+#include <iostream>
+#include <algorithm>
+#include <random>
+#include <cstring>
+#include <chrono>
+#include <iomanip>
+#include <fstream>
+
 #ifndef SATSUMA_UTILITY_H
 #define SATSUMA_UTILITY_H
+
+#define SATSUMA_VERSION_MAJOR 1
+#define SATSUMA_VERSION_MINOR 2
+#define DEJAVU_VERSION_MAJOR 2
+#define DEJAVU_VERSION_MINOR 1
+#define DEJAVU_VERSION_IS_PREVIEW false
+
+#if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+#define satsuma_getc(f) getc_unlocked(f)
+#define satsuma_putc(f, c) putc_unlocked(f, c)
+#define satsuma_flockfile(f) flockfile(f);
+#define satsuma_funlockfile(f) funlockfile(f);
+#else
+#define satsuma_getc(f) getc(f)
+#define satsuma_putc(f, c) putc(f, c)
+#define satsuma_flockfile(f) {};
+#define satsuma_funlockfile(f) {};
+#endif
+
+
+static inline bool this_file_exists(const std::string& name) {
+    std::ifstream f(name.c_str());
+    return f.good();
+}
+
 
 /**
 * \brief Rudimentary class to keep track of time.
@@ -67,7 +101,7 @@ public:
     }
 };
 
-static void terminate_with_error(std::string error_msg) {
+inline void terminate_with_error(std::string error_msg) {
     std::cerr << "c \nc " << error_msg << std::endl;
     exit(1);
 }

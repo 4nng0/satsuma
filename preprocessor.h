@@ -17,7 +17,8 @@
 #include "group_analyzer.h"
 #include "hypergraph.h"
 #include "proof.h"
-#include "include/IPreprocessor.h"
+#include "include/ISatsumaPreprocessor.h"
+#include "include/utility.h"
 
 namespace satsuma {
     /**
@@ -27,6 +28,10 @@ namespace satsuma {
     class preprocessor : public ISatsumaPreprocessor {
         bool        entered_output_file = false;
         std::string output_filename     = "";
+		std::vector<int> preprocessed_formula;
+        bool      save_as_formula = false;
+		int number_of_new_clauses = 0;
+
 
         // further modules
         std::ostream* log         = &std::clog; /**< logging */
@@ -83,6 +88,7 @@ namespace satsuma {
             // only output the graph used for symmetry detection
             if(graph_only) {
                 group_analyzer symmetries;
+				symmetries.set_log_output(log);
                 (*log) << "c\n";
                 (*log) << "c output graph to '" << output_filename << "'";
                 symmetries.compute_from_cnf(formula, true, output_filename);
@@ -112,6 +118,7 @@ namespace satsuma {
             group_analyzer symmetries(absolute_support_limit, graph_component_size_limit,
                                       dejavu_backtrack_limit);
             //symmetries.compute_from_cnf(formula);
+			symmetries.set_log_output(log);
             symmetries.compute_from_hypergraph(hypergraph);
             hypergraph.clear(); // now that we have the graph, we don't need the corresponding hypergraph structure
             (*log) << std::endl << "c\t [group: #orbits ~= " << symmetries.n_orbits() << "]";
@@ -214,6 +221,23 @@ namespace satsuma {
             const size_t buffer_size = 512*1024; // 512KB
             char  buffer[buffer_size];
 
+			if(save_as_formula){
+            	//carefule this is not typical DIMACS format
+            	std::vector<int> result;
+            	int number_of_variables = formula.n_variables() + sbp.n_extra_variables();
+            	int number_of_clauses = formula.n_clauses() + sbp.n_clauses();
+	            number_of_new_clauses = sbp.n_clauses();
+    	        std::vector<int> clauses_formula = formula.get_dimacs_array();
+        	    std::vector<int> clauses_sbp = sbp.get_dimacs_array();
+            	result.insert(result.end(), clauses_formula.begin(), clauses_formula.end());
+	            result.insert(result.end(), clauses_sbp.begin(), clauses_sbp.end());
+    	        result.push_back(number_of_variables);
+        	    result.push_back(number_of_clauses);
+		    	preprocessed_formula = result;
+            	//add logging?
+            	return;
+       		}
+
             // choose whether to write to a file, or standard out
             if(entered_output_file) {
                 (*log) << " to '" << output_filename << "'";
@@ -248,6 +272,23 @@ namespace satsuma {
         }
 
     public:
+
+		std::vector<int>&& extractPreprocessedFormula() override {
+      		assert(!preprocessed_formula.empty());
+      		return std::move(preprocessed_formula);
+   		}
+
+
+		bool hasPreprocessedFormula() override {
+			return !preprocessed_formula.empty();
+		}
+
+		void set_save_as_Formula(bool save) override {
+       		save_as_formula = save;
+    	}
+
+
+
         void set_struct_only(bool use_only_struct) override {
             struct_only = use_only_struct;
         }
@@ -355,12 +396,12 @@ namespace satsuma {
         }
 
         void enable_proof_logging(const std::string& filename) override {
+			std::ofstream _proof_stream;
             _proof_stream.open(filename);
             if (!_proof_stream.is_open()) {
                 terminate_with_error("could not open proof file '" + filename + "'");
             }
-            // Internes Objekt mit dem Stream initialisieren
-            _my_proof = std::make_unique<proof_veripb>(_proof_stream);
+            proof_veripb my_proof(_proof_stream);
 
             // Jetzt kann deine interne Logik 'this->_my_proof' wie gewohnt nutzen
         }
@@ -374,9 +415,11 @@ namespace satsuma {
             log = new_logout;
         }
 
+		int get_number_of_new_clauses() override { return number_of_new_clauses; }
+
         void preprocess(ICnf2wl& interface_ref) override {
 
-            cnf2wl* formula = dynamic_cast<cnf2wl*>(&interface_ref);
+            cnf2wl& formula = dynamic_cast<cnf2wl&>(interface_ref);
 
             // Wenn das fehlschlägt, ist internal == nullptr
             assert(internal != nullptr && "Fehler: Preprocessor wurde mit einer unbekannten ICnf2wl-Implementierung aufgerufen!");
@@ -450,9 +493,6 @@ namespace satsuma {
         }
     };
 
-    std::unique_ptr<Ipreprocessor> create_preprocessor() {
-        return std::make_unique<preprocessor>();
-    }
 }
 
 #endif //SATSUMA_SATSUMA_H

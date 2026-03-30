@@ -9,7 +9,7 @@
 #include <string>
 #include <charconv>
 
-inline void parse_dimacs_to_cnf2wl(const std::string& filename, ICnf2wl& formula, bool entered_file) {
+inline void parse_dimacs_to_cnf2wl(const std::string& filename, satsuma::ICnf2wl& formula, bool entered_file) {
     FILE* file = nullptr;
     if(entered_file) file = fopen(filename.c_str(), "r");
     else file = stdin;
