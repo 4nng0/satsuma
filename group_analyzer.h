@@ -14,6 +14,9 @@
  * Constructs and analysis a group from a CNF representation of a SAT instance.
  */
 class group_analyzer {
+
+    std::ostream* log         = &std::clog; /**< logging */
+
     dejavu::solver d;
     dejavu::ir::refinement ref;
 
@@ -171,6 +174,12 @@ public:
         save_graph.initialize_coloring(&save_col, vertex_to_orbit.get_array());
     }
 
+    void set_log_output(std::ostream* new_logout)
+    {
+        if(new_logout == nullptr) terminate_with_error("log output can not be nullptr");
+        log = new_logout;
+    }
+
     void compute_from_hypergraph(satsuma::hypergraph_wrapper& hypergraph, bool out_graph = false,
                                  std::string filename = "") {
 
@@ -178,7 +187,7 @@ public:
         const bool use_binary_graph    = (hypergraph.binary_clauses > formula.n_variables());
         const bool use_variable_vertex = use_binary_graph;
         //const bool use_binary_graph = false;
-        std::clog << " (binary_graph=" << use_binary_graph << ")";
+        (*log)  << " (binary_graph=" << use_binary_graph << ")";
 
         int need_binary_fix = 0;
         // check how many binary fix vertices do we need
@@ -188,7 +197,7 @@ public:
         // compute number of vertices
         domain_size = 2*formula.n_variables();
         domain_size_graph = 2*formula.n_variables() + formula.n_clauses()
-                            - use_binary_graph*hypergraph.binary_clauses 
+                            - use_binary_graph*hypergraph.binary_clauses
                             + use_variable_vertex*need_binary_fix
                             - hypergraph.removed_clauses + hypergraph.n_hyperedges();
 
@@ -275,7 +284,7 @@ public:
         for(int i = 1; i <= formula.n_variables(); ++i) {
             const int vert_lp = sat_to_graph(i);
             const int vert_ln = sat_to_graph(-i);
-            
+
             if(use_variable_vertex && hypergraph.variable_needs_binary_fix(i)) {
                 const int bin_vert = variable_vertex_start + j;
                 ++j;
@@ -386,7 +395,7 @@ public:
         for(int i = 0; i < domain_size_graph; ++i) vertex_to_orbit[i] = orbits_graph.find_orbit(i);
         save_graph.initialize_coloring(&save_col, vertex_to_orbit.get_array());
 
-        //std::clog << " saved=" << formula.n_variables() - need_binary_fix << std::endl;
+        //(*log) << " saved=" << formula.n_variables() - need_binary_fix << std::endl;
     }
 
     int n_orbits() {
@@ -404,9 +413,9 @@ public:
         orbits_graph.reset();
 
         // call dejavu
-        std::clog << "c\t [graph: #vertices " << save_graph.v_size << " #edges " <<
+        (*log) << "c\t [graph: #vertices " << save_graph.v_size << " #edges " <<
                                                  save_graph.e_size << "]\n";
-        //auto test_hook = dejavu::hooks::ostream_hook(std::clog);
+        //auto test_hook = dejavu::hooks::ostream_hook(std::clog); here use (*log) ?
         auto hook_func = dejavu_hook(self_hook());
         dejavu::hooks::strong_certification_hook cert_hook(save_graph, &hook_func);
         //graph.dump_dimacs("graph_binary.dimacs");
@@ -417,11 +426,11 @@ public:
         d.set_limit_component(graph_component_size_limit);
         orbits_graph.reset();
         orbits.reset();
-        std::clog << "c\t dejavu (support_limit=" << absolute_support_limit*4/1024.0/1024.0 << "MB, budget_limit=" <<
+        (*log) << "c\t dejavu (support_limit=" << absolute_support_limit*4/1024.0/1024.0 << "MB, budget_limit=" <<
                      dejavu_backtracking_limit << ")";
         d.automorphisms(&save_graph, remainder_col.vertex_to_col, cert_hook.get_hook());
         //d.automorphisms(&save_graph, remainder_col.vertex_to_col, &hook_func);
-        if (d.get_reached_limit()) std::clog << " exceeded limit";
+        if (d.get_reached_limit()) (*log) << " exceeded limit";
         //d.automorphisms(graph.get_sgraph(), graph.get_coloring(), test_hook.get_hook());
     }
 
@@ -432,7 +441,7 @@ public:
      *   @param sbp The symmetry breaking predicate, to which potential breaking constraints are added.
      */
     void detect_symmetric_action(cnf& formula, predicate& sbp) {
-        std::clog << "c\t probe for symmetric actions..." << std::endl;
+        (*log) << "c\t probe for symmetric actions..." << std::endl;
 
         // proceed orbit-by-orbit
         for (int i = 0; i < static_cast<int>(orbit_list.size()); ++i) {
@@ -458,7 +467,7 @@ public:
             if(!potential_symmetric_action) continue;
 
             // if all the above transpositions are allowed, the orbit admits a natural symmetric action
-            std::clog << "c\t symmetric action orbit " << anchor_vertex << std::endl;
+            (*log) << "c\t symmetric action orbit " << anchor_vertex << std::endl;
             for(int j = 1; j < static_cast<int>(orbit.size()); ++j) {
                 aw.reset();
                 aw.write_single_map(orbit[0], orbit[j]);
@@ -624,7 +633,7 @@ public:
      * @param sbp The predicate to which the double-lex constraint is added.
      */
     void detect_johnson_arity2(cnf& formula, predicate& sbp, int limit = -1) {
-        std::clog << "c\t probe for Johnson action (limit=" << limit << ")" << std::endl;
+        (*log) << "c\t probe for Johnson action (limit=" << limit << ")" << std::endl;
 
         // skip special detection for shallow groups
         if(probed_base_length < 4*log2(orbit_list.size()) && orbit_list.size() > 10000) return;
@@ -718,7 +727,7 @@ public:
 
             if(!potential_johnson) continue;
 
-            std::clog << "c\t candidate Johnson " << imaginary_domain_cnt+1 << ", ar 2" << std::endl;
+            (*log) << "c\t candidate Johnson " << imaginary_domain_cnt+1 << ", ar 2" << std::endl;
 
             std::unordered_map<std::pair<int,int>, int, hash_pair> lookup_subset;
             for(auto vertex : orbit) {
@@ -845,13 +854,13 @@ public:
                 potential_johnson = potential_johnson && formula.complete_automorphism(domain_size, aw);
                 if(!potential_johnson || !formula.is_automorphism(domain_size, aw)) {
                     potential_johnson = false;
-                    std::clog << "c\t not a Johnson action(" << j-1 << ", " << j << ") " << johnson_block_action[0].size() << std::endl;
+                    (*log) << "c\t not a Johnson action(" << j-1 << ", " << j << ") " << johnson_block_action[0].size() << std::endl;
                     break;
                 }
             }
 
             if(potential_johnson) {
-                std::clog << "c\t  found Johnson " << imaginary_domain_cnt+1 << ", ar 2, block_sz " << johnson_block_action[0].size() << std::endl;
+                (*log) << "c\t  found Johnson " << imaginary_domain_cnt+1 << ", ar 2, block_sz " << johnson_block_action[0].size() << std::endl;
 
                 // suggest order according to Johnson
                 std::vector<int> order;
@@ -1011,7 +1020,7 @@ public:
      * @param sbp The predicate to which the double-lex constraint is added.
      */
     void detect_row_column_symmetry(cnf& formula, predicate& sbp, int limit = -1, long split_limit = -1) {
-        std::clog << "c\t probe for row-column symmetry (limit=" << limit <<
+        (*log) << "c\t probe for row-column symmetry (limit=" << limit <<
                      ", splits=" << split_limit/1000.0/1000.0 <<"M)" << std::endl;
 
         probe_base_length();
@@ -1201,8 +1210,8 @@ public:
                 continue;
             }
 
-            //std::clog << "c\t candidate " << row.size() << "x" << column.size() << " matrix model" << std::endl;
-            //std::clog << "c\t attempting to order..." << std::endl;
+            //(*log) << "c\t candidate " << row.size() << "x" << column.size() << " matrix model" << std::endl;
+            //(*log) << << "c\t attempting to order..." << std::endl;
 
             // If sizes are plausible, we have a candidate, which we check in the routine below.
             const bool confirmed = check_row_column_candidate(formula, sbp, orbit, row, column, in_row, in_column,
@@ -1311,7 +1320,7 @@ public:
         if(!potential_row_column_symmetry) return false;
 
         // verify that this is indeed a row-column symmetry matrix model
-        //std::clog << "c\t testing row-column symmetry..." << std::endl;
+        //(*log) <<"c\t testing row-column symmetry..." << std::endl;
 
         // we have found all the representatives, so let's construct the actual matrix
         std::vector<int> row_to_index;
@@ -1342,13 +1351,13 @@ public:
         }
         for(j = 1; j < static_cast<int>(column.size()); ++j) {
             if(row_size[0] != row_size[j]) {
-                // std::clog << "c\t row " << j << "(different size " << row_size[0] << "-" << row_size[j] << std::endl;
+                // (*log) << "c\t row " << j << "(different size " << row_size[0] << "-" << row_size[j] << std::endl;
                 potential_row_column_symmetry = false;
             }
         }
         for(j = 1; j < static_cast<int>(row.size()); ++j) {
             if(column_size[0] != column_size[j]) {
-                // std::clog << "c\t column " << j << " different size" << column_size[0] << "-" << column_size[j] << std::endl;
+                // (*log) << "c\t column " << j << " different size" << column_size[0] << "-" << column_size[j] << std::endl;
                 potential_row_column_symmetry = false;
             }
         }
@@ -1412,7 +1421,7 @@ public:
             potential_row_column_symmetry = potential_row_column_symmetry &&
                                             formula.complete_automorphism(domain_size, aw);
             if(!potential_row_column_symmetry || !formula.is_automorphism(domain_size, aw)) {
-                //std::clog << "c\t not a row transposition (" << 0 << ", " << j << ")" << std::endl;
+                //(*log) << "c\t not a row transposition (" << 0 << ", " << j << ")" << std::endl;
                 potential_row_column_symmetry = false;
                 break;
             }
@@ -1438,7 +1447,7 @@ public:
             potential_row_column_symmetry = potential_row_column_symmetry &&
                                             formula.complete_automorphism(domain_size, aw);
             if(!potential_row_column_symmetry || !formula.is_automorphism(domain_size, aw)) {
-                //std::clog << "c\t not a column transposition (" << 0 << ", " << j << ")" << std::endl;
+                //(*log) << "c\t not a column transposition (" << 0 << ", " << j << ")" << std::endl;
                 potential_row_column_symmetry = false;
                 break;
             }
@@ -1447,7 +1456,7 @@ public:
         if(!potential_row_column_symmetry) return false;
 
         // matrix is confirmed to be row-column symmetry, now we write a double-lex predicate
-        std::clog << "c\t  found row-column " << row.size() << "x" << column.size() << std::endl;
+        (*log) << "c\t  found row-column " << row.size() << "x" << column.size() << std::endl;
 
         double_lex(formula, sbp, matrix_model);
         orbit_handled.set(orbits.find_orbit(anchor_vertex));
@@ -1562,7 +1571,7 @@ public:
             if(j == 0) {
                 const int remainder_orbit = ir_controller.c->ptn[ir_controller.c->vertex_to_col[orbit[1]]] + 1;
                 if (remainder_orbit < static_cast<int>(orbit.size()) - 1) {
-                    std::clog << "c remainder orbit too small " << remainder_orbit << std::endl;
+                    (*log) << "c remainder orbit too small " << remainder_orbit << std::endl;
                     ir_controller.move_to_parent();
                     potential_row_symmetry = false;
                     break;
@@ -1649,7 +1658,7 @@ public:
 
         // recursively test & order blocks for row symmetry, in order to determine order
         if(potential_blocks.size() > 0){
-            std::clog << "c\t recursing " << potential_blocks.size() << " blocks of candidate " << orbit.size() << "x"
+            (*log) << "c\t recursing " << potential_blocks.size() << " blocks of candidate " << orbit.size() << "x"
                       << orbit_row[0].size() << "r" << std::endl;
             std::vector<int> in_row;
             in_row.resize(domain_size);
@@ -1689,7 +1698,7 @@ public:
         if(!potential_row_symmetry) return;
 
         // matrix is confirmed to be row-column symmetry, now we write a double-lex predicate
-        std::clog << "c\t  found row " << orbit.size() << "x" << orbit_row[0].size() << (reduce_orbit?" (red. orbit)":"") << ", generating row predicate" << std::endl;
+        (*log) << "c\t  found row " << orbit.size() << "x" << orbit_row[0].size() << (reduce_orbit?" (red. orbit)":"") << ", generating row predicate" << std::endl;
 
         if(recurse_order == nullptr && individualize == nullptr && !reduce_orbit) {
             for(auto v : orbit) {
@@ -1764,11 +1773,11 @@ public:
 
         /*// test if "blocks" can be handled recursively, too
         if(potential_blocks.size() > 0) {
-            std::clog << "c\t recursing " << potential_blocks.size() << " blocks of " << orbit.size() << "x" <<
+            (*log) <<"c\t recursing " << potential_blocks.size() << " blocks of " << orbit.size() << "x" <<
                       orbit_row[0].size() << "r" << std::endl;
 
             dejavu::markset unique_block_size(domain_size);
-        
+
             for (auto potential_block: potential_blocks) {
                 if (!unique_block_size.get(potential_block.size())) {
                     unique_block_size.set(potential_block.size());
@@ -1807,7 +1816,7 @@ public:
      */
     void detect_row_symmetry(cnf& formula, predicate& sbp, int limit = -1, long split_limit = -1,
                              std::vector<int>* order_prev = nullptr) {
-        std::clog << "c\t probe for row symmetry (limit=" << limit << ", splits=" << split_limit/1000.0/1000.0 <<"M)" << std::endl;
+        (*log) << "c\t probe for row symmetry (limit=" << limit << ", splits=" << split_limit/1000.0/1000.0 <<"M)" << std::endl;
 
         probe_base_length();
 
@@ -2166,7 +2175,7 @@ public:
             }
 
             if(k % 16 == 15) {
-                std::clog << "c\t " << "opt it=" << k << ", l=" << loads1+loads2 << ", m=" << mults << ", opt=" << shrinks << ", avg=" << ((int)round(avg_support)) << ", b=" << best_support << ", gens=" << generators.size() <<
+                (*log) << "c\t " << "opt it=" << k << ", l=" << loads1+loads2 << ", m=" << mults << ", opt=" << shrinks << ", avg=" << ((int)round(avg_support)) << ", b=" << best_support << ", gens=" << generators.size() <<
                           std::endl;
             }
 
@@ -2262,7 +2271,7 @@ public:
                     generators.back()->store(domain_size, aw, store_helper);
                 }
             }
-            std::clog << "c\t ran it=" << k << ", +gens=" << additions << " " << std::endl;
+            (*log) << "c\t ran it=" << k << ", +gens=" << additions << " " << std::endl;
         }
 
         constexpr int dense_support_limit = 32000;
@@ -2276,14 +2285,14 @@ public:
             // give up early if not successful
             if(l == 32 && additions == 0) break;
             // if(l == 32 && additions > 0 && equal_occured > 10) extra_word_length = 5;
-            
+
             const int conj_j = good_support_gens[rng() % good_support_gens.size()];
 
             aw.reset();
             generators[conj_j]->load(aw);
-            //std::clog << "from:" << std::endl;
+            //(*log) << "from:" << std::endl;
             //print_automorphism(domain_size, aw.p(), aw.nsupp(), aw.supp());
-            
+
             if(l == 0 || aw2.nsupp() == 0 || aw2.nsupp() > dense_support_limit) {
                 const int j = rng() % limit;
                 if(j == conj_j) continue;
@@ -2322,11 +2331,11 @@ public:
             additions += 1;
             generators.push_back(new dejavu::groups::stored_automorphism());
             generators.back()->store(domain_size, aw3, store_helper);
-            //std::clog << "c\t con " << j << "^-1 " << conj_j << " " << j << " support " << aw.nsupp() << std::endl;
+            //(*log) << "c\t con " << j << "^-1 " << conj_j << " " << j << " support " << aw.nsupp() << std::endl;
         }
 
 
-        std::clog << "c\t con " << "best_support=" << best_support << ", best_gens=" << good_support_gens.size() << ", +gens="
+        (*log) << "c\t con " << "best_support=" << best_support << ", best_gens=" << good_support_gens.size() << ", +gens="
                    << additions << std::endl;
 
         // re-optimize generators

@@ -9,7 +9,7 @@
 #include "proof.h"
 #include <charconv>
 #include "dejavu/dejavu.h"
-#include "utility.h"
+#include "include/utility.h"
 
 /**
  * Used to construct and store symmetry breaking predicates.
@@ -341,6 +341,17 @@ public:
             satsuma_putc('0', out);
             satsuma_putc('\n', out);
         }
+    }
+
+	std::vector<int> get_dimacs_array() {
+        std::vector<int> result;
+        for(const auto& c : sbp) {
+            for(const int l : c) {
+                result.push_back(l);
+            }
+            result.push_back(0);
+        }
+        return result;
     }
 };
 

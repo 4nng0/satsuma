@@ -8,7 +8,7 @@
 #include <string>
 #include "dejavu/groups.h"
 #include "tsl/robin_set.h"
-#include "utility.h"
+#include "internal_utility.h"
 #include "cnf2wl.h"
 
 /**
@@ -401,6 +401,18 @@ public:
             satsuma_putc('\n', out);
         }
     }
+
+	std::vector<int> get_dimacs_array() {
+		std::vector<int> result;
+		for(int i = 0; i < n_clauses(); ++i) {
+            for (int j = 0; j < clause_size(i); ++j) {
+                const int l = literal_at_clause_pos(i, j);
+                result.push_back(l);
+            }
+            result.push_back(0);
+        }
+        return result;
+	}
 };
 
 #endif //SATSUMA_CNF_H

@@ -20,11 +20,36 @@ add_compile_options("-march=native")
 # add_definitions(-g)
 add_definitions(-DNDEBUG)
 
-# boost required at the moment
-if(POLICY CMP0167)
-    cmake_policy(SET CMP0167 NEW)
-endif()
-find_package(Boost REQUIRED)
-INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
 
-add_executable(satsuma satsuma.cpp)
+set(LOCAL_BOOST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/multiprecision-Boost_1_89_0/include")
+if(EXISTS "${LOCAL_BOOST_DIR}/boost/multiprecision/cpp_int.hpp")
+    message(STATUS "Using local Boost headers in ${LOCAL_BOOST_DIR}")
+    include_directories(${LOCAL_BOOST_DIR})
+else()
+    message(STATUS "Fallback")
+    set(BOOST_ROOT "/opt/homebrew/opt/boost")
+    find_package(Boost REQUIRED)
+    include_directories(${Boost_INCLUDE_DIRS})
+endif()
+
+
+
+add_library(satsuma STATIC
+        preprocessor.h
+        cnf2wl.h
+        cnf.h
+        group_analyzer.h
+        hypergraph.h
+        predicate.h
+        internal_utility.h
+        proof.h
+        proof.h
+        factory.cpp
+)
+
+
+add_executable(satsuma_exec satsuma.cpp)
+target_link_libraries(satsuma_exec PRIVATE satsuma)
+target_include_directories(satsuma_exec PRIVATE ${CMAKE_SOURCE_DIR}/include)
+
+

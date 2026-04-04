@@ -5,7 +5,7 @@
 #ifndef SATSUMA_PROOF_H
 #define SATSUMA_PROOF_H
 
-#include "utility.h"
+#include "internal_utility.h"
 #include "dejavu/groups.h"
 #include <boost/multiprecision/cpp_int.hpp>
 
